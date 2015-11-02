@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Project title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/common.css"><!--[if lt IE 9]><script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script><![endif]--><!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
+  </head>
+  <body>
+    <div class="hidden"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12"><a data-toggle="modal" class="cart-box">
+                <p class="status-wrap"><span class="cart fa fa-shopping-cart"></span><span id="status">Ваша корзина пуста</span></p>
+                <div class="doit">Заказать!</div></a>
+              <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                      <h4 class="modal-title">Корзина</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="msg"></div>
+                      <form role="form" id="order-form" class="form-horizontal">
+                        <h4>Ваш заказ</h4>
+                        <div id="order" class="wrap"></div>
+                        <h4>Ваши данные</h4>
+                        <div class="wrap">
+                          <div class="form-group">
+                            <label for="name" class="col-xs-3 control-label">Ваше имя</label>
+                            <div class="col-xs-9">
+                              <input type="name" id="name" placeholder="Имя" name="name" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-xs-3 control-label">E-mail</label>
+                            <div class="col-xs-9">
+                              <input type="email" id="email" placeholder="E-mail" name="email" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-default">Продолжить</button>
+                      <button type="submit" form="order-form" class="btn btn-warning">Заказать</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container message-box">
+                <div class="alert alert-warning">Вы не выбрали ни одного товара.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="products">
+        <div class="container">
+          <div class="row">
+            <div id="products"></div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer"></footer>
+    </div>
+  </body>
+  <script src="js/main.js"></script>
+  <!-- begin Товары на прилавке-->
+  <script id="blocks" type="text/x-handlebars-template">
+    {{#each blocks}}
+    	<div class="col-md-4 col-sm-4 col-xs-6">
+    		<div class="item_wrap">
+    			<div class="item_pic">
+    				<img class="img-responsive img" src="img/items/{{alias}}.jpg" alt="{{name}}">
+    			</div>
+    			<div class="item_info">
+    				<div class="item_title">{{name}}</div>
+    				<label class="item_label">Количество:</label>
+    				<span class="input_wrap">
+    					<input type="text" class="spinners" value="0" data="{{alias}}">
+    				</span>
+    			</div>
+    		</div>
+    	</div>
+    {{/each}}
+  </script>
+  <!-- end Товары на прилавке-->
+  <!-- begin Товары в корзине-->
+  <script id="order-template" type="text/x-handlebars-template">
+    {{#each goods}}
+    {{#if amount}}
+    <div class="form-group">
+    	<label class="col-md-3 control-label">{{productNameRus}}</label> 
+    	<div class="col-xs-12 col-md-9 cart-prod-line">
+    		<div class="text-in"> 500 гр. <span class="x">x</span> </div>
+    		<span class="input_wrap">
+    			<input id="spinner2" data="{{productAlias}}" name="{{productNameRus}}" data-price="{{productPrice}}" class="spinners" value="{{amount}}">
+    		</span>
+    		<div class="text-in">
+    			<span class="x">x</span>
+    			<span class="product-price">{{productPrice}}</span>
+    			<span class="x">=</span>
+    			<span class="current-sum">{{productSum}}</span> руб.
+    		</div>
+    	</div>
+    </div>
+    {{/if}}
+    {{/each}}
+    <div class="form-group"> 
+    <label class="col-xs-3 control-label">Итого</label> 
+    <div class="col-xs-9 input-group"> 
+    	<input type="text" id="total-sum" name="Итого" class="form-control" value="{{totalPrice}}" readonly="readonly"> 
+    	<span class="input-group-addon">руб</span> 
+    </div>
+    </div>
+    
+  </script>
+  <!-- end Товары в корзине-->
+</html>
